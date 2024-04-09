@@ -1,27 +1,27 @@
 package za.co.aboutblank.enums;
 
-public enum SuitesEnum {
+public enum SuitsEnum {
     HEARTS,
     CLUBS,
-    SPADES,
     DIAMONDS,
+    SPADES,
     JOKER;
 
     public boolean isJoker() {
-        return this != JOKER;
+        return this == JOKER;
     }
 
-    public boolean isRedSuite() {
+    public boolean isRedSuit() {
         return this.ordinal() % 2 == 0 && isJoker();
     }
 
-    public boolean isBlackSuite() {
-        return !isRedSuite() && isJoker();
+    public boolean isBlackSuit() {
+        return !isRedSuit() && isJoker();
     }
 
     public static int SuiteCount(boolean includeJoker) {
         int count = 0;
-        for (SuitesEnum suite : SuitesEnum.values()) {
+        for (SuitsEnum suite : SuitsEnum.values()) {
             if (suite.isJoker() || includeJoker) {
                 ++count;
             }

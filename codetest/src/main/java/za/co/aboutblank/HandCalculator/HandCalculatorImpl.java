@@ -1,50 +1,59 @@
 package za.co.aboutblank.HandCalculator;
 
-import za.co.aboutblank.consts.HandCalculator;
+import za.co.aboutblank.interfaces.HandCalculator;
+import za.co.aboutblank.models.Card;
+
+import java.util.List;
 
 public class HandCalculatorImpl implements HandCalculator {
 
-    public boolean isStraightFlush(String[] cards) {
+    public boolean isFiveOfAKind(List<Card> cards) {
+        // Requires a joker
+        //var joker = Card
+        //if(cards.contains(Card.))
+        return false;
+    }
+
+    public boolean isStraightFlush(List<Card> cards) {
+        return false;
+    }
+
+    public boolean isFourOfAKind(List<Card> cards) {
   
         return false;
     }
 
-    public boolean isFourOfAKind(String[] cards) {
+    public boolean isFullHouse(List<Card> cards) {
   
         return false;
     }
 
-    public boolean isFullHouse(String[] cards) {
+    public boolean isFlush(List<Card> cards) {
   
         return false;
     }
 
-    public boolean isFlush(String[] cards) {
+    public boolean isStraight(List<Card> cards) {
   
         return false;
     }
 
-    public boolean isStraight(String[] cards) {
+    public boolean isThreeOfAKind(List<Card> cards) {
   
         return false;
     }
 
-    public boolean isThreeOfAKind(String[] cards) {
+    public boolean isTwoPair(List<Card> cards) {
   
         return false;
     }
 
-    public boolean isTwoPair(String[] cards) {
+    public boolean isOnePair(List<Card> cards) {
   
         return false;
     }
 
-    public boolean isOnePair(String[] cards) {
-  
-        return false;
-    }
-
-    public boolean isHighCard(String[] cards) {
+    public boolean isHighCard(List<Card> cards) {
   
         return false;
     }
