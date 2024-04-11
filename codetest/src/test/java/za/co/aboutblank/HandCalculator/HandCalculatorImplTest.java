@@ -9,7 +9,8 @@ import za.co.aboutblank.models.Card;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class HandCalculatorImplTest {
 
@@ -231,7 +232,19 @@ public class HandCalculatorImplTest {
 
     // 3 of a kind --------------------------------------------------
     @Test
-    public void isThreeOfAKindTest()  throws InvalidCardException{
+    public void isThreeOfAKindTest() throws InvalidCardException {
+        List<Card> cards = Arrays.asList(
+                new Card(SuitsEnum.DIAMONDS, ScoresEnum.SCORE_QUEEN),
+                new Card(SuitsEnum.DIAMONDS, ScoresEnum.SCORE_6),
+                new Card(SuitsEnum.HEARTS, ScoresEnum.SCORE_3),
+                new Card(SuitsEnum.CLUBS, ScoresEnum.SCORE_QUEEN),
+                new Card(SuitsEnum.HEARTS, ScoresEnum.SCORE_QUEEN)
+        );
+        assertTrue(sut.isThreeOfAKind(cards));
+    }
+
+    @Test
+    public void isThreeOfAKindFailedTest() throws InvalidCardException {
         List<Card> cards = Arrays.asList(
                 new Card(SuitsEnum.DIAMONDS, ScoresEnum.SCORE_JACK),
                 new Card(SuitsEnum.DIAMONDS, ScoresEnum.SCORE_6),
@@ -239,24 +252,79 @@ public class HandCalculatorImplTest {
                 new Card(SuitsEnum.DIAMONDS, ScoresEnum.SCORE_7),
                 new Card(SuitsEnum.DIAMONDS, ScoresEnum.SCORE_KING)
         );
-    }
-
-
-    @Test
-    public void isTwoPairTest()  throws InvalidCardException{
-
-
+        assertFalse(sut.isThreeOfAKind(cards));
     }
 
     @Test
-    public void isOnePairTest()  throws InvalidCardException{
+    public void isTwoPairTest() throws InvalidCardException {
+        List<Card> cards = Arrays.asList(
+                new Card(SuitsEnum.HEARTS, ScoresEnum.SCORE_JACK),
+                new Card(SuitsEnum.SPADES, ScoresEnum.SCORE_JACK),
+                new Card(SuitsEnum.HEARTS, ScoresEnum.SCORE_3),
+                new Card(SuitsEnum.DIAMONDS, ScoresEnum.SCORE_3),
+                new Card(SuitsEnum.SPADES, ScoresEnum.SCORE_2)
+        );
+        assertTrue(sut.isTwoPair(cards));
+    }
 
+    @Test
+    public void isTwoPairSadPathTest() throws InvalidCardException {
+        List<Card> cards = Arrays.asList(
+                new Card(SuitsEnum.HEARTS, ScoresEnum.SCORE_JACK),
+                new Card(SuitsEnum.SPADES, ScoresEnum.SCORE_QUEEN),
+                new Card(SuitsEnum.HEARTS, ScoresEnum.SCORE_3),
+                new Card(SuitsEnum.DIAMONDS, ScoresEnum.SCORE_3),
+                new Card(SuitsEnum.SPADES, ScoresEnum.SCORE_2)
+        );
+        assertFalse(sut.isTwoPair(cards));
+    }
+
+    @Test
+    public void isTwoPairInvalidUseTest() throws InvalidCardException {
+        List<Card> cards = Arrays.asList(
+                new Card(SuitsEnum.HEARTS, ScoresEnum.SCORE_JACK),
+                new Card(SuitsEnum.SPADES, ScoresEnum.SCORE_JACK),
+                new Card(SuitsEnum.CLUBS, ScoresEnum.SCORE_JACK),
+                new Card(SuitsEnum.DIAMONDS, ScoresEnum.SCORE_JACK),
+                new Card(SuitsEnum.SPADES, ScoresEnum.SCORE_2)
+        );
+        assertFalse(sut.isTwoPair(cards));
+    }
+
+    @Test
+    public void isOnePairTest() throws InvalidCardException {
+        List<Card> cards = Arrays.asList(
+                new Card(SuitsEnum.HEARTS, ScoresEnum.SCORE_JACK),
+                new Card(SuitsEnum.SPADES, ScoresEnum.SCORE_QUEEN),
+                new Card(SuitsEnum.HEARTS, ScoresEnum.SCORE_3),
+                new Card(SuitsEnum.DIAMONDS, ScoresEnum.SCORE_3),
+                new Card(SuitsEnum.SPADES, ScoresEnum.SCORE_2)
+        );
+        assertTrue(sut.isOnePair(cards));
 
     }
 
     @Test
-    public void isHighCardTest()  throws InvalidCardException{
+    public void isOnePairSadPathTest() throws InvalidCardException {
+        List<Card> cards = Arrays.asList(
+                new Card(SuitsEnum.HEARTS, ScoresEnum.SCORE_JACK),
+                new Card(SuitsEnum.SPADES, ScoresEnum.SCORE_QUEEN),
+                new Card(SuitsEnum.HEARTS, ScoresEnum.SCORE_3),
+                new Card(SuitsEnum.DIAMONDS, ScoresEnum.SCORE_3),
+                new Card(SuitsEnum.SPADES, ScoresEnum.SCORE_2)
+        );
+        assertFalse(sut.isTwoPair(cards));
+    }
 
-
+    @Test
+    public void isOnePairInvalidUseTest() throws InvalidCardException {
+        List<Card> cards = Arrays.asList(
+                new Card(SuitsEnum.HEARTS, ScoresEnum.SCORE_JACK),
+                new Card(SuitsEnum.SPADES, ScoresEnum.SCORE_JACK),
+                new Card(SuitsEnum.CLUBS, ScoresEnum.SCORE_JACK),
+                new Card(SuitsEnum.DIAMONDS, ScoresEnum.SCORE_JACK),
+                new Card(SuitsEnum.SPADES, ScoresEnum.SCORE_2)
+        );
+        assertFalse(sut.isTwoPair(cards));
     }
 }

@@ -5,6 +5,7 @@ import za.co.aboutblank.helpers.ReverseOrderedCardComparator;
 import za.co.aboutblank.interfaces.HandCalculator;
 import za.co.aboutblank.models.Card;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -12,24 +13,18 @@ import java.util.stream.IntStream;
 public class HandCalculatorImpl implements HandCalculator {
 
     public boolean isFiveOfAKind(List<Card> cards) {
-        // Requires a joker. I think you can do it with both jokers?
+        // Requires a joker. I think you can do it with both jokers? The wiki article does nkt say
         var hasJoker = cards.stream()
                 .filter(Card::isJoker)
                 .toList();
-        // Lets assume a single pack here, in Las Vegas it is probably possible to get 5 Jokers
+        // Let's assume a single pack here, in Las Vegas it is probably possible to get 5 Jokers
         if (hasJoker.size() == 1 || hasJoker.size() == 2) {
             // test the remaining cards by value (the loop is cleaner than a stream,
             // and it only needs to run over 5 cards. I should probably taken out the Jokers)
             // TODO - take the jokers out the List for max efficiency!
-            var seen = new HashSet<>();
-            var duplicates = new HashSet<>();
-            for (Card c : cards) {
-                if (seen.add(c.getScore())) {
-                    duplicates.add(c.getScore());
-                }
-            }
+            var duplicates = countDuplicateScores(cards);
             // Only two unique values should exist, Joker and whatever other value
-            return duplicates.size() == 2;
+            return duplicates == 2;
         }
         return false;
     }
@@ -58,7 +53,6 @@ public class HandCalculatorImpl implements HandCalculator {
     public boolean isFourOfAKind(List<Card> cards) {
         // There should be only two suites in our result, the 4 of a kind
         // and something else.
-
         var seen = new HashSet<>();
         var duplicates = new HashSet<>();
         for (Card c : cards) {
@@ -112,25 +106,68 @@ public class HandCalculatorImpl implements HandCalculator {
     }
 
     public boolean isThreeOfAKind(List<Card> cards) {
-        // This is basically a copy of earlier code
-        //TODO refactor into one method if possible
-        return false;
-        // isSequential
+        // Note that this can produce false positives if it is not executed
+        // in the order of the methods as listed in this class, it could well
+        // be tagged as Four as a kind, unless that method is run first
+        var seen = new HashSet<>();
+        var duplicates = new HashSet<>();
+        for (Card c : cards) {
+            if (seen.add(c.getScore())) {
+                duplicates.add(c.getScore());
+            }
+        }
+        // we expect 2 or 3 suits - 1 of the triple, and either 1 or 2 extras
+        return duplicates.size() == 2 || duplicates.size() == 3;
+
     }
 
     public boolean isTwoPair(List<Card> cards) {
-        // This is basically a copy of earlier code
-        //TODO refactor into one method if possible
-        return false;
+        var seen = new HashSet<>();
+        var duplicates = new HashSet<>();
+        for (Card c : cards) {
+            if (seen.add(c.getScore())) {
+                duplicates.add(c.getScore());
+            }
+        }
+        // we expect precisely 3 suites, the pairs and the random extra
+        return duplicates.size() == 3;
     }
 
     public boolean isOnePair(List<Card> cards) {
-
-        return false;
+        // Note that this can produce false positives if it is not executed
+        // in the order of the methods as listed in this class
+        var duplicates = countDuplicateScores(cards);
+        // we expect 2 or 3 suits - 1 of the triple, and either 1 or 2 extras
+        return duplicates == 4;
     }
 
     public boolean isHighCard(List<Card> cards) {
+        // at this point, we've tested for every other winning scenario
+        // if you don't have a highest card, it's time to leave the casino.
+        return true;
+    }
 
-        return false;
+    private int countDuplicateScores(List<Card> cards) {
+
+        var seen = new HashSet<>();
+        var duplicates = new HashSet<>();
+        for (Card c : cards) {
+            if (seen.add(c.getScore())) {
+                duplicates.add(c.getScore());
+            }
+        }
+        return duplicates.size();
+    }
+
+    private int countDuplicateSuits(List<Card> cards) {
+
+        var seen = new HashSet<>();
+        var duplicates = new HashSet<>();
+        for (Card c : cards) {
+            if (seen.add(c.getSuit())) {
+                duplicates.add(c.getSuit());
+            }
+        }
+        return duplicates.size();
     }
 }
