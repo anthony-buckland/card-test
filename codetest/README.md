@@ -8,6 +8,8 @@ There are also a number of versions of poker, so I am not sure which rules to fo
 
 *NOTES*
 
+I used the Lombok plugin, because I like just writing `var` rather than the tedious Java `SomeType thing = new SomeType()` style. I did not use it other than for that simple convenience.
+
 I got a lot of inspiration for the setup from the following sites:
 
 * Stack Exchange [code review](https://codereview.stackexchange.com/questions/36916/weekend-challenge-poker-hand-evaluation). 

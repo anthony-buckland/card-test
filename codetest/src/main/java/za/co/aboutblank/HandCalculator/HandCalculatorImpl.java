@@ -5,7 +5,6 @@ import za.co.aboutblank.helpers.ReverseOrderedCardComparator;
 import za.co.aboutblank.interfaces.HandCalculator;
 import za.co.aboutblank.models.Card;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -40,28 +39,22 @@ public class HandCalculatorImpl implements HandCalculator {
                 .filter(c -> c.getSuit() == suit)
                 .toList();
 
-        // Fortunately Instream gan also go in reverse!
+        // Fortunately Instream can also go in reverse!
         var isSequential = IntStream.range(hand.size(), 0)
                 .allMatch(value -> {
                     var match = value - 1 == hand.get(value).getScore().getValue();
                     return match;
                 });
 
-        return hand.size() == 5 && isSequential;
+        return isSequential;
     }
 
     public boolean isFourOfAKind(List<Card> cards) {
         // There should be only two suites in our result, the 4 of a kind
         // and something else.
-        var seen = new HashSet<>();
-        var duplicates = new HashSet<>();
-        for (Card c : cards) {
-            if (seen.add(c.getScore())) {
-                duplicates.add(c.getSuit());
-            }
-        }
+        var duplicates = countDuplicateScores(cards);
 
-        return duplicates.size() == 2;
+        return duplicates == 2;
     }
 
     public boolean isFullHouse(List<Card> cards) {
@@ -85,15 +78,9 @@ public class HandCalculatorImpl implements HandCalculator {
         // the list anyway. Maybe someone one day might like to know the
         // highest card. It apparently matters.
         cards.sort(new ReverseOrderedCardComparator());
-        var seen = new HashSet<>();
-        var duplicates = new HashSet<>();
-        for (Card c : cards) {
-            if (seen.add(c.getScore())) {
-                duplicates.add(c.getSuit());
-            }
-        }
+        var duplicates = countDuplicateScores(cards);
 
-        return duplicates.size() == 1;
+        return duplicates == 1;
     }
 
     public boolean isStraight(List<Card> cards) {
@@ -107,7 +94,7 @@ public class HandCalculatorImpl implements HandCalculator {
 
     public boolean isThreeOfAKind(List<Card> cards) {
         // Note that this can produce false positives if it is not executed
-        // in the order of the methods as listed in this class, it could well
+        // in the strict order of the methods as listed in this class, it could well
         // be tagged as Four as a kind, unless that method is run first
         var seen = new HashSet<>();
         var duplicates = new HashSet<>();
@@ -135,7 +122,7 @@ public class HandCalculatorImpl implements HandCalculator {
 
     public boolean isOnePair(List<Card> cards) {
         // Note that this can produce false positives if it is not executed
-        // in the order of the methods as listed in this class
+        // in the strict order of the methods as listed in this class
         var duplicates = countDuplicateScores(cards);
         // we expect 2 or 3 suits - 1 of the triple, and either 1 or 2 extras
         return duplicates == 4;
