@@ -32,21 +32,21 @@ public class HandCalculatorImpl implements HandCalculator {
         // Check the first card suit, all the others need to match it
         // Sort the cards, check if there are in (reverse) sequential order.
         // Not sure if the Jokers are allowed, so will not include them
-        var suit = cards.get(0).getSuit();
-
         cards.sort(new ReverseOrderedCardComparator());
+        var suit = cards.get(0).getSuit();
         var hand = cards.stream()
                 .filter(c -> c.getSuit() == suit)
                 .toList();
 
-        // Fortunately Instream can also go in reverse!
-        var isSequential = IntStream.range(hand.size(), 0)
-                .allMatch(value -> {
-                    var match = value - 1 == hand.get(value).getScore().getValue();
-                    return match;
-                });
+        if(hand.size() != 5) {
+            return false;
+        }
 
-        return isSequential;
+        // Fortunately Instream can also go in reverse!
+        return IntStream.range(hand.size(), 0)
+                .allMatch(value -> {
+                    return value - 1 == hand.get(value).getScore().getValue();
+                });
     }
 
     public boolean isFourOfAKind(List<Card> cards) {
@@ -78,7 +78,7 @@ public class HandCalculatorImpl implements HandCalculator {
         // the list anyway. Maybe someone one day might like to know the
         // highest card. It apparently matters.
         cards.sort(new ReverseOrderedCardComparator());
-        var duplicates = countDuplicateScores(cards);
+        var duplicates = countDuplicateSuits(cards);
 
         return duplicates == 1;
     }

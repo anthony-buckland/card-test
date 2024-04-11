@@ -121,23 +121,11 @@ public class HandCalculatorImplTest {
     @Test
     public void isFourOfAKindTest() throws InvalidCardException {
         List<Card> cards = Arrays.asList(
-                new Card(SuitsEnum.DIAMONDS, ScoresEnum.SCORE_7),
-                new Card(SuitsEnum.DIAMONDS, ScoresEnum.SCORE_10),
-                new Card(SuitsEnum.DIAMONDS, ScoresEnum.SCORE_9),
-                new Card(SuitsEnum.DIAMONDS, ScoresEnum.SCORE_8),
-                new Card(SuitsEnum.CLUBS, ScoresEnum.SCORE_JACK)
-        );
-        assertTrue(sut.isFourOfAKind(cards));
-    }
-
-    @Test
-    public void isFourOfAKindUnorderedTest() throws InvalidCardException {
-        List<Card> cards = Arrays.asList(
-                new Card(SuitsEnum.DIAMONDS, ScoresEnum.SCORE_7),
-                new Card(SuitsEnum.DIAMONDS, ScoresEnum.SCORE_10),
-                new Card(SuitsEnum.DIAMONDS, ScoresEnum.SCORE_9),
-                new Card(SuitsEnum.DIAMONDS, ScoresEnum.SCORE_8),
-                new Card(SuitsEnum.CLUBS, ScoresEnum.SCORE_JACK)
+                new Card(SuitsEnum.CLUBS, ScoresEnum.SCORE_5),
+                new Card(SuitsEnum.DIAMONDS, ScoresEnum.SCORE_5),
+                new Card(SuitsEnum.HEARTS, ScoresEnum.SCORE_5),
+                new Card(SuitsEnum.SPADES, ScoresEnum.SCORE_5),
+                new Card(SuitsEnum.DIAMONDS, ScoresEnum.SCORE_2)
         );
         assertTrue(sut.isFourOfAKind(cards));
     }
