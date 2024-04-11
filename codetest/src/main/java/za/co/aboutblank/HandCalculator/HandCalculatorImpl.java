@@ -12,7 +12,7 @@ import java.util.stream.IntStream;
 public class HandCalculatorImpl implements HandCalculator {
 
     public boolean isFiveOfAKind(List<Card> cards) {
-        // Requires a joker. I think you can do it with both jokers? The wiki article does nkt say
+        // Requires a joker. I think you can do it with both jokers? The wiki article does not say
         var hasJoker = cards.stream()
                 .filter(Card::isJoker)
                 .toList();

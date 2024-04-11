@@ -34,8 +34,7 @@ class ReverseOrderConsecutiveCheckerTest {
         assertEquals(ScoresEnum.SCORE_7.getValue(), cards.get(4).getScore().getValue());
 
         // Test if they are in consecutive order
-        var countdown = new CardOrderCheck();
-        assertTrue(countdown.isReverseConsecutive(cards));
+        assertTrue(CardOrderCheck.isReverseConsecutive(cards));
 
     }
 
