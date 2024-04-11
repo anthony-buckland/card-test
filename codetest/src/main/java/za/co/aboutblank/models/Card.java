@@ -7,8 +7,8 @@ import za.co.aboutblank.exceptions.InvalidCardException;
 
 public class Card {
 
-    private static SuitsEnum suit = null;
-    private static ScoresEnum score = null;
+    private SuitsEnum suit = null;
+    private ScoresEnum score = null;
 
     public SuitsEnum getSuit() {
         return suit;
@@ -29,6 +29,7 @@ public class Card {
         if (suit == null) {
             throw new InvalidCardException("You must enter a Suit, or JOKER");
         }
+        // TODO - FIXME
         // test for Joker
         if (!suit.isJoker() && score == ScoresEnum.SCORE_JOKER) {
             throw new InvalidCardException("You cannot enter a JOKER Score when setting a Suit");
