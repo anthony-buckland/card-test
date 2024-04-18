@@ -6,12 +6,13 @@ import java.util.List;
 
 // Normally, I'd avoid an interface where only a single class
 // implements it, modern unit testing tools can use concrete
-// classes.
+// classes. But it makes TDD easier
 
 public interface HandCalculator {
-    boolean isFourOfAKind(List<Card> cards);
 
     boolean isFiveOfAKind(List<Card> cards);
+
+    boolean isFourOfAKind(List<Card> cards);
 
     boolean isFullHouse(List<Card> cards);
 

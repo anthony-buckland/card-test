@@ -166,7 +166,7 @@ public class HandCalculatorImplTest {
         assertFalse(sut.isFullHouse(cards));
     }
 
-    // Flash -----------------------------------------------------
+    // Flush -----------------------------------------------------
     @Test
     public void isFlushTest() throws InvalidCardException {
         List<Card> cards = Arrays.asList(

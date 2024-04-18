@@ -10,7 +10,7 @@ I used `OpenJDK 20` for Java. It should be backwards compatible to around Java 8
 
 I typically use the command line, in my case Mac `Terminal`.
 
-Ideally check out the unit tests, but in any IDE or console with `gradle` installed, it should run with `./gradlew clean build` or the Windows equivalent `gradlew clean build`.
+Ideally check out the unit tests, but in any IDE or console with `gradle` installed, it should run with `./gradlew clean build` or the Windows equivalent `gradlew clean build`. If you wish to determine input, use the gradle `run` command 
 
 *Terminal/Console input*
 

@@ -19,7 +19,7 @@ public class HandCalculatorImpl implements HandCalculator {
         // Let's assume a single pack here, in Las Vegas it is probably possible to get 5 Jokers
         if (hasJoker.size() == 1 || hasJoker.size() == 2) {
             // test the remaining cards by value (the loop is cleaner than a stream,
-            // and it only needs to run over 5 cards. I should probably taken out the Jokers)
+            // and it only needs to run over 5 cards. I should probably take out the Jokers)
             // TODO - take the jokers out the List for max efficiency!
             var duplicates = countDuplicateScores(cards);
             // Only two unique values should exist, Joker and whatever other value
@@ -42,7 +42,7 @@ public class HandCalculatorImpl implements HandCalculator {
             return false;
         }
 
-        // Fortunately Instream can also go in reverse!
+        // Fortunately Intstream can also go in reverse!
         return IntStream.range(hand.size(), 0)
                 .allMatch(value -> {
                     return value - 1 == hand.get(value).getScore().getValue();
@@ -122,9 +122,10 @@ public class HandCalculatorImpl implements HandCalculator {
 
     public boolean isOnePair(List<Card> cards) {
         // Note that this can produce false positives if it is not executed
-        // in the strict order of the methods as listed in this class
+        // in the strict order of the methods as listed in this class, specifically
+        // a double pair
         var duplicates = countDuplicateScores(cards);
-        // we expect 2 or 3 suits - 1 of the triple, and either 1 or 2 extras
+        // we expect 2 or 3 suits - 1 of the pair, and either 1 or 2 extras
         return duplicates == 4;
     }
 
