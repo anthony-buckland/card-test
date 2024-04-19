@@ -1,5 +1,6 @@
 package za.co.aboutblank.HandCalculator;
 
+import one.util.streamex.StreamEx;
 import za.co.aboutblank.helpers.CardOrderCheck;
 import za.co.aboutblank.helpers.ReverseOrderedCardComparator;
 import za.co.aboutblank.interfaces.HandCalculator;
@@ -7,6 +8,7 @@ import za.co.aboutblank.models.Card;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class HandCalculatorImpl implements HandCalculator {
@@ -20,8 +22,7 @@ public class HandCalculatorImpl implements HandCalculator {
         if (hasJoker.size() == 1 || hasJoker.size() == 2) {
             // test the remaining cards by value (the loop is cleaner than a stream,
             // and it only needs to run over 5 cards. I should probably take out the Jokers)
-            // TODO - take the jokers out the List for max efficiency!
-            var duplicates = countDuplicateScores(cards);
+            var duplicates = countDuplicateScores((List<Card>) cards);
             // Only two unique values should exist, Joker and whatever other value
             return duplicates == 2;
         }
@@ -38,23 +39,22 @@ public class HandCalculatorImpl implements HandCalculator {
                 .filter(c -> c.getSuit() == suit)
                 .toList();
 
-        if(hand.size() != 5) {
-            return false;
-        }
-
         // Fortunately Intstream can also go in reverse!
         return IntStream.range(hand.size(), 0)
-                .allMatch(value -> {
-                    return value - 1 == hand.get(value).getScore().getValue();
-                });
+                .allMatch(value -> value - 1 == hand.get(value).getScore().getValue())
+                && hand.size() == 5;
     }
 
     public boolean isFourOfAKind(List<Card> cards) {
-        // There should be only two suites in our result, the 4 of a kind
-        // and something else.
-        var duplicates = countDuplicateScores(cards);
+        // there should be only four equal scored cards, assuming a
+        // single pack, thus only two possible card scores
+        cards.sort(new ReverseOrderedCardComparator());
+        var hand = StreamEx.of(cards)
+                .distinct(Card::getScore)
+                .toList();
 
-        return duplicates == 2;
+        return hand.size() == 2
+            && cards.get(0).getScore() == cards.get(3).getScore();
     }
 
     public boolean isFullHouse(List<Card> cards) {
@@ -87,37 +87,29 @@ public class HandCalculatorImpl implements HandCalculator {
         // 5 Sequential cards of any suit.
         // Sort the cards in (reverse) sequential order.
         cards.sort(new ReverseOrderedCardComparator());
-        var isConsecutive = CardOrderCheck.isReverseConsecutive(cards);
-
-        return cards.size() == 5 && isConsecutive;
+        return CardOrderCheck.isReverseConsecutive(cards);
     }
 
     public boolean isThreeOfAKind(List<Card> cards) {
-        // Note that this can produce false positives if it is not executed
-        // in the strict order of the methods as listed in this class, it could well
-        // be tagged as Four as a kind, unless that method is run first
-        var seen = new HashSet<>();
-        var duplicates = new HashSet<>();
-        for (Card c : cards) {
-            if (seen.add(c.getScore())) {
-                duplicates.add(c.getScore());
-            }
-        }
-        // we expect 2 or 3 suits - 1 of the triple, and either 1 or 2 extras
-        return duplicates.size() == 2 || duplicates.size() == 3;
-
+        // Again, assuming a single pack of cards. And this code
+        // is executed in order
+        cards.sort(new ReverseOrderedCardComparator());
+        var hand = StreamEx.of(cards)
+                .distinct(Card::getScore)
+                .toList();
+        return hand.size() == 3
+                && cards.get(0).getScore() == cards.get(2).getScore();
     }
 
     public boolean isTwoPair(List<Card> cards) {
-        var seen = new HashSet<>();
-        var duplicates = new HashSet<>();
-        for (Card c : cards) {
-            if (seen.add(c.getScore())) {
-                duplicates.add(c.getScore());
-            }
-        }
-        // we expect precisely 3 suites, the pairs and the random extra
-        return duplicates.size() == 3;
+        // we expect precisely 3 suits, the pairs and the random extra
+        cards.sort(new ReverseOrderedCardComparator());
+        var hand = StreamEx.of(cards)
+                .distinct(Card::getScore)
+                .toList();
+        return hand.size() == 3
+                && cards.get(0) != cards.get(3)
+                && cards.get(3) != cards.get(4);
     }
 
     public boolean isOnePair(List<Card> cards) {
@@ -130,8 +122,8 @@ public class HandCalculatorImpl implements HandCalculator {
     }
 
     public boolean isHighCard(List<Card> cards) {
-        // at this point, we've tested for every other winning scenario
-        // if you don't have a highest card, it's time to leave the casino.
+        // At this point, we've tested for every other winning scenario
+        // if you don't have the highest card, it's time to leave the casino.
         return true;
     }
 

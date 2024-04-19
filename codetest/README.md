@@ -25,7 +25,7 @@ eg:
 
 Separate the cards in each hand by a space:
 
-`KS QC 7D 10H JOKER`
+`SK CQ D& H10 J`
 
 (As I have said I know nothing about poker! Some games allow Jokers)
 
@@ -44,7 +44,7 @@ Not sure if we are playing with multiple packs, as in a casino. I did not test f
 
 Shot myself in the foot somewhat by using enums for the Scores, I could have used constants instead.
 
-I did do this entirely TDD style, even though my normal approach would be to develop the test and the system under code at pretty much the same time.
+I did try to do this entirely TDD style, even though my normal approach would be to develop the test and the system under code at pretty much the same time.
 
 
 *ATTRIBUTIONS*

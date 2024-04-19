@@ -12,7 +12,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class HandCalculatorImplTest {
+public class HandTypeCalculatorImplTest {
 
     HandCalculatorImpl sut = new HandCalculatorImpl();
 
@@ -26,7 +26,6 @@ public class HandCalculatorImplTest {
                 new Card(SuitsEnum.SPADES, ScoresEnum.SCORE_2),
                 new Card(SuitsEnum.HEARTS, ScoresEnum.SCORE_2),
                 new Card(SuitsEnum.JOKER, ScoresEnum.SCORE_JOKER)
-
         );
 
         assertTrue(sut.isFiveOfAKind(cards));
