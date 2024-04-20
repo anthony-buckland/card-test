@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.spotbugs:spotbugs-annotations:4.8.2" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="com.github.spotbugs" artifactId="spotbugs-annotations" version="4.8.2" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.spotbugs/spotbugs-annotations/4.8.2/54a355bbe1f1563e40ac3bb67c7af8ecca8eee3e/spotbugs-annotations-4.8.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.spotbugs/spotbugs-annotations/4.8.2/62e2cc9cfe009786e8f7b5ac6421668cb8a62b1/spotbugs-annotations-4.8.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

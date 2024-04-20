@@ -63,14 +63,15 @@ public class HandCalculatorImpl implements HandCalculator {
         cards.sort(new ReverseOrderedCardComparator());
         var upperCard = cards.get(0).getScore();
         var lowerCard = cards.get(4).getScore();
-        var lower = cards.stream()
-                .filter(c -> c.getScore() == lowerCard)
-                .toList();
         var upper = cards.stream()
                 .filter(c -> c.getScore() == upperCard)
                 .toList();
+        var lower = cards.stream()
+                .filter(c -> c.getScore() == lowerCard)
+                .toList();
 
-        return lower.size() == 3 && upper.size() == 2;
+        return lower.size() == 3 && upper.size() == 2
+            || lower.size() == 2 && upper.size() == 3;
     }
 
     public boolean isFlush(List<Card> cards) {

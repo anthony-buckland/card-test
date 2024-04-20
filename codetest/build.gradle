@@ -1,12 +1,24 @@
 plugins {
     id 'java'
+    id 'org.springframework.boot' version '3.2.5'
+    id 'io.spring.dependency-management' version '1.1.4'
 }
 
 group = 'za.co.aboutblank'
 version = '1.0-SNAPSHOT'
 
+java {
+    sourceCompatibility = '17'
+}
+
 repositories {
     mavenCentral()
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
 }
 
 dependencies {
@@ -14,16 +26,19 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.32'
     annotationProcessor 'org.projectlombok:lombok:1.18.32'
 
+    implementation'de.audioattack.io:console:1.2.1'
     implementation 'one.util:streamex:0.6.5'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
 
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testImplementation 'org.assertj:assertj-core:3.24.2'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
     testCompileOnly 'org.projectlombok:lombok:1.18.32'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.32'
 }
 
-test {
+tasks.named('test') {
     useJUnitPlatform()
 }
