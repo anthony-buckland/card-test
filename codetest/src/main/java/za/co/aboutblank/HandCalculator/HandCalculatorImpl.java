@@ -6,10 +6,9 @@ import za.co.aboutblank.helpers.ReverseOrderedCardComparator;
 import za.co.aboutblank.interfaces.HandCalculator;
 import za.co.aboutblank.models.Card;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class HandCalculatorImpl implements HandCalculator {
 
@@ -34,15 +33,16 @@ public class HandCalculatorImpl implements HandCalculator {
         // Sort the cards, check if there are in (reverse) sequential order.
         // Not sure if the Jokers are allowed, so will not include them
         cards.sort(new ReverseOrderedCardComparator());
-        var suit = cards.get(0).getSuit();
+        var suit = cards.get(0).getSuit(); // all need to match
         var hand = cards.stream()
                 .filter(c -> c.getSuit() == suit)
                 .toList();
-
-        // Fortunately Intstream can also go in reverse!
-        return IntStream.range(hand.size(), 0)
-                .allMatch(value -> value - 1 == hand.get(value).getScore().getValue())
-                && hand.size() == 5;
+        //A bit of a hack here. The code can return the wrong value for a Straight Flush and a flush,
+        // so we want  to know that the cards are consecutive
+        if(!(CardOrderCheck.isReverseConsecutive(cards) && hand.size() == 5)) {
+            return false;
+        };
+        return true;
     }
 
     public boolean isFourOfAKind(List<Card> cards) {
@@ -54,7 +54,7 @@ public class HandCalculatorImpl implements HandCalculator {
                 .toList();
 
         return hand.size() == 2
-            && cards.get(0).getScore() == cards.get(3).getScore();
+                && cards.get(0).getScore() == cards.get(3).getScore();
     }
 
     public boolean isFullHouse(List<Card> cards) {
@@ -71,7 +71,7 @@ public class HandCalculatorImpl implements HandCalculator {
                 .toList();
 
         return lower.size() == 3 && upper.size() == 2
-            || lower.size() == 2 && upper.size() == 3;
+                || lower.size() == 2 && upper.size() == 3;
     }
 
     public boolean isFlush(List<Card> cards) {

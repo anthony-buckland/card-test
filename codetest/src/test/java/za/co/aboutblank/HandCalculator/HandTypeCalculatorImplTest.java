@@ -16,8 +16,6 @@ public class HandTypeCalculatorImplTest {
 
     HandCalculatorImpl sut = new HandCalculatorImpl();
 
-    // TODO - test the exceptions!!
-
     @Test
     public void is5ofKindTest() throws InvalidCardException {
         List<Card> cards = Arrays.asList(

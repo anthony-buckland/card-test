@@ -93,7 +93,7 @@ class HandTypeTest {
                 new Card(SuitsEnum.DIAMONDS, ScoresEnum.SCORE_4)
         );
         {
-            assertEquals(Words.STRAIGHT_FLUSH, HandType.describe(cards));
+            assertEquals(Words.FLUSH, HandType.describe(cards));
         }
     }
 

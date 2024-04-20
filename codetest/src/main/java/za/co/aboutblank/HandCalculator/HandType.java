@@ -1,14 +1,17 @@
 package za.co.aboutblank.HandCalculator;
 
 import za.co.aboutblank.consts.Words;
+import za.co.aboutblank.helpers.ReverseOrderedCardComparator;
 import za.co.aboutblank.models.Card;
 
+import java.util.Collections;
 import java.util.List;
 
 public class HandType {
     public static String describe(List<Card> cards) {
         String result = Words.HIGHEST_CARD;
         var calc = new HandCalculatorImpl();
+        Collections.sort(cards, new ReverseOrderedCardComparator());
         // go through the cards and test for each condition, in strict order.
         // This is messy and should Java ever adopt JavaScripts "switch(true)"
         // I will be forever grateful. Perhaps a rules engine would work better here

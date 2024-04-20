@@ -31,10 +31,10 @@ class CardOrderCheckTest {
     public void isNotReverseConsecutive() throws InvalidCardException {
         List<Card> cards = Arrays.asList(
                 new Card(SuitsEnum.DIAMONDS, ScoresEnum.SCORE_JACK),
-                new Card(SuitsEnum.DIAMONDS, ScoresEnum.SCORE_10),
+                new Card(SuitsEnum.DIAMONDS, ScoresEnum.SCORE_2),
                 new Card(SuitsEnum.DIAMONDS, ScoresEnum.SCORE_4),
                 new Card(SuitsEnum.DIAMONDS, ScoresEnum.SCORE_3),
-                new Card(SuitsEnum.DIAMONDS, ScoresEnum.SCORE_2)
+                new Card(SuitsEnum.DIAMONDS, ScoresEnum.SCORE_10)
         );
 
         assertFalse(CardOrderCheck.isReverseConsecutive(cards));

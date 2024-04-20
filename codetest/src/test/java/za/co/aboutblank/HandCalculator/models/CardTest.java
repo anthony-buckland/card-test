@@ -8,6 +8,8 @@ import za.co.aboutblank.exceptions.InvalidCardException;
 import za.co.aboutblank.models.Card;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static za.co.aboutblank.consts.Errors.NO_SCORE_FOR_JOKER;
+import static za.co.aboutblank.consts.Errors.NO_SUIT;
 
 public class CardTest {
 
@@ -18,7 +20,7 @@ public class CardTest {
                 () -> new Card(null, ScoresEnum.SCORE_2),
                 "isNullSuit failed!");
 
-        assertTrue(ex.getMessage().contains("You must enter a Suit, or JOKER"));
+        assertTrue(ex.getMessage().contains(NO_SUIT));
     }
 
     @Test
@@ -28,7 +30,7 @@ public class CardTest {
                 () -> new Card(SuitsEnum.HEARTS, ScoresEnum.SCORE_JOKER),
                 "isInvalidScore failed!");
 
-        assertTrue(ex.getMessage().contains("You cannot enter a JOKER Score when setting a Suit"));
+        assertTrue(ex.getMessage().contains(NO_SCORE_FOR_JOKER));
     }
 
     @Test
@@ -47,7 +49,7 @@ public class CardTest {
 
     @Test
     public void getScoreForAnAcesHigh() throws InvalidCardException  {
-        // Not this one.
+        // Nor this one.
         var card = new Card(SuitsEnum.DIAMONDS, ScoresEnum.SCORE_ACES_HIGH);
         assertEquals(14, card.getAceScore(AcesEnum.HIGH));
     }

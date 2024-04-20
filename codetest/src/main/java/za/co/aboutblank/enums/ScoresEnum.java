@@ -36,7 +36,7 @@ public enum ScoresEnum {
 
     public static List<ScoresEnum> getScores(String score) {
         return Arrays.stream(ScoresEnum.values())
-                .filter(s -> s.getValue() == Integer.parseInt(score))
+                .filter(s -> s.getValue() == Integer.parseInt(score)) // TODO test for int in case it is not one!
                 .toList();
     }
 

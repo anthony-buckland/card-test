@@ -4,7 +4,8 @@
 *.iws
 *.jar
 *.sw?
-*.idea/*
+*/.idea
+.*/codetest.iml
 *~
 .#*
 .*.md.html

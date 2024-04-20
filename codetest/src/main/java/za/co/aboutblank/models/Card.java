@@ -5,6 +5,9 @@ import za.co.aboutblank.enums.ScoresEnum;
 import za.co.aboutblank.enums.SuitsEnum;
 import za.co.aboutblank.exceptions.InvalidCardException;
 
+import static za.co.aboutblank.consts.Errors.NO_SCORE_FOR_JOKER;
+import static za.co.aboutblank.consts.Errors.NO_SUIT;
+
 public class Card {
 
     private SuitsEnum suit = null;
@@ -27,11 +30,11 @@ public class Card {
         this.score = score;
         // Test for suit
         if (suit == null) {
-            throw new InvalidCardException("You must enter a Suit, or JOKER (J)");
+            throw new InvalidCardException(NO_SUIT);
         }
         // test for Joker
-        if (!suit.isJoker() && score == ScoresEnum.SCORE_JOKER) {
-            throw new InvalidCardException("You cannot enter a JOKER Score when setting a Suit");
+        if (!(suit.isJoker() && score == ScoresEnum.SCORE_JOKER)) {
+            throw new InvalidCardException(NO_SCORE_FOR_JOKER);
         }
     }
 
