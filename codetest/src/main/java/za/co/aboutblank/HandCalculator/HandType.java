@@ -1,6 +1,7 @@
 package za.co.aboutblank.HandCalculator;
 
 import za.co.aboutblank.consts.Words;
+import za.co.aboutblank.exceptions.InvalidCardException;
 import za.co.aboutblank.helpers.ReverseOrderedCardComparator;
 import za.co.aboutblank.models.Card;
 
@@ -8,14 +9,16 @@ import java.util.Collections;
 import java.util.List;
 
 public class HandType {
-    public static String describe(List<Card> cards) {
+    public static String describe(List<Card> cards) throws InvalidCardException {
         String result = Words.HIGHEST_CARD;
         var calc = new HandCalculatorImpl();
         Collections.sort(cards, new ReverseOrderedCardComparator());
-        // go through the cards and test for each condition, in strict order.
+        // go through the cards and test for each condition, in *strict* order.
         // This is messy and should Java ever adopt JavaScripts "switch(true)"
         // I will be forever grateful. Perhaps a rules engine would work better here
-        if (calc.isFiveOfAKind(cards)) {
+        if (calc.isRoyalFlush(cards)) {
+            result = Words.ROYAL_FLUSH;
+        } else if (calc.isFiveOfAKind(cards)) {
             result = Words.FIVE_OF_KIND;
         } else if (calc.isStraightFlush(cards)) {
             result = Words.STRAIGHT_FLUSH;

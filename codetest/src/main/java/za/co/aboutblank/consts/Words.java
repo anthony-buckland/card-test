@@ -1,6 +1,8 @@
 package za.co.aboutblank.consts;
 
 public class Words {
+
+    public static final String ROYAL_FLUSH = "You have a Royal Flush";
     public static final String FIVE_OF_KIND = "You have 5 of a kind";
     public static final String STRAIGHT_FLUSH = "You have a straight flush";
     public static final String FOUR_OF_KIND = "You have 4 of a kind";

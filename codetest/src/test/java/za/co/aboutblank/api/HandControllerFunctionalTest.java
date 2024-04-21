@@ -31,6 +31,16 @@ class HandControllerFunctionalTest {
     }
 
     @Test
+    public void canCalculateRoyalFlagTest() {
+        var input = "SA,SQ,SJ,SK,S10";
+
+        assertThat(this.restTemplate.getForObject(
+                "http://localhost:" + port + "/hand?cards=" + input,
+                String.class))
+                .contains(ROYAL_FLUSH);
+    }
+
+    @Test
     public void canCalculateFiveOfKindTest() {
         var input = "SA,CA,DA,j,HA";
 

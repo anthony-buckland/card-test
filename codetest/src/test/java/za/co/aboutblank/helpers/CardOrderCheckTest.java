@@ -28,6 +28,19 @@ class CardOrderCheckTest {
     }
 
     @Test
+    public void isReverseConsecutiveExcludingLast() throws InvalidCardException {
+        List<Card> cards = Arrays.asList(
+                new Card(SuitsEnum.DIAMONDS, ScoresEnum.SCORE_JACK),
+                new Card(SuitsEnum.DIAMONDS, ScoresEnum.SCORE_10),
+                new Card(SuitsEnum.DIAMONDS, ScoresEnum.SCORE_9),
+                new Card(SuitsEnum.DIAMONDS, ScoresEnum.SCORE_8),
+                new Card(SuitsEnum.DIAMONDS, ScoresEnum.SCORE_7)
+        );
+
+        assertTrue(CardOrderCheck.isReverseConsecutive(cards));
+
+    }
+    @Test
     public void isNotReverseConsecutive() throws InvalidCardException {
         List<Card> cards = Arrays.asList(
                 new Card(SuitsEnum.DIAMONDS, ScoresEnum.SCORE_JACK),

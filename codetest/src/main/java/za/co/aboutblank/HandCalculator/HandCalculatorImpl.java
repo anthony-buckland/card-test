@@ -1,16 +1,46 @@
 package za.co.aboutblank.HandCalculator;
 
 import one.util.streamex.StreamEx;
+import za.co.aboutblank.enums.ScoresEnum;
+import za.co.aboutblank.exceptions.InvalidCardException;
 import za.co.aboutblank.helpers.CardOrderCheck;
 import za.co.aboutblank.helpers.ReverseOrderedCardComparator;
 import za.co.aboutblank.interfaces.HandCalculator;
 import za.co.aboutblank.models.Card;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
 public class HandCalculatorImpl implements HandCalculator {
+
+    public Boolean isRoyalFlush(List<Card> cards) throws InvalidCardException {
+        // Only one suit, contains an ace. It will be ordered with the ace at the end because
+        // the default is Aces low. So we need one suit,the first card must be a king.
+        cards.sort(new ReverseOrderedCardComparator());
+        if(cards.get(0).getScore().getValue() != 13 || cards.get(4).getScore().getValue() != 1){
+            // No King or Ace, return
+            return false;
+        }
+
+        var suit = cards.get(0).getSuit(); // all need to match
+        var hand = cards.stream()
+                .filter(c -> c.getSuit() == suit)
+                .toList();
+        // reduced list of cards. Pop the Ace_Low, push the Ace_High
+        var cardsInOrder = new ArrayList<>(cards);
+        cardsInOrder.add(0, new Card(suit, ScoresEnum.SCORE_ACES_HIGH));
+        cardsInOrder.remove(cardsInOrder.size() - 1);
+
+
+        if(CardOrderCheck.isReverseConsecutive(cardsInOrder)
+                && hand.size() == 5)
+                 {
+            return true;
+        };
+        return false;
+    }
 
     public boolean isFiveOfAKind(List<Card> cards) {
         // Requires a joker. I think you can do it with both jokers? The wiki article does not say
@@ -21,7 +51,7 @@ public class HandCalculatorImpl implements HandCalculator {
         if (hasJoker.size() == 1 || hasJoker.size() == 2) {
             // test the remaining cards by value (the loop is cleaner than a stream,
             // and it only needs to run over 5 cards. I should probably take out the Jokers)
-            var duplicates = countDuplicateScores((List<Card>) cards);
+            var duplicates = countDuplicateScores(cards);
             // Only two unique values should exist, Joker and whatever other value
             return duplicates == 2;
         }

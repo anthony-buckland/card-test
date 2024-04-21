@@ -17,6 +17,45 @@ public class HandTypeCalculatorImplTest {
     HandCalculatorImpl sut = new HandCalculatorImpl();
 
     @Test
+    public void isRoyalFlushTest() throws InvalidCardException  {
+        List<Card> cards = Arrays.asList(
+                new Card(SuitsEnum.HEARTS, ScoresEnum.SCORE_KING),
+                new Card(SuitsEnum.HEARTS, ScoresEnum.SCORE_QUEEN),
+                new Card(SuitsEnum.HEARTS, ScoresEnum.SCORE_JACK),
+                new Card(SuitsEnum.HEARTS, ScoresEnum.SCORE_10),
+                new Card(SuitsEnum.HEARTS, ScoresEnum.SCORE_ACES_LOW)
+        );
+        assertTrue(sut.isRoyalFlush(cards));
+    }
+
+    @Test
+    public void isRoyalFlushUnordered() throws InvalidCardException {
+        List<Card> cards = Arrays.asList(
+                new Card(SuitsEnum.HEARTS, ScoresEnum.SCORE_ACES_LOW),
+                new Card(SuitsEnum.HEARTS, ScoresEnum.SCORE_QUEEN),
+                new Card(SuitsEnum.HEARTS, ScoresEnum.SCORE_JACK),
+                new Card(SuitsEnum.HEARTS, ScoresEnum.SCORE_KING),
+                new Card(SuitsEnum.HEARTS, ScoresEnum.SCORE_10)
+
+        );
+        assertTrue(sut.isRoyalFlush(cards));
+    }
+
+    @Test
+    public void isRoyalFlushBadCard() throws InvalidCardException {
+        List<Card> cards = Arrays.asList(
+                new Card(SuitsEnum.HEARTS, ScoresEnum.SCORE_ACES_LOW),
+                new Card(SuitsEnum.DIAMONDS, ScoresEnum.SCORE_QUEEN),
+                new Card(SuitsEnum.HEARTS, ScoresEnum.SCORE_JACK),
+                new Card(SuitsEnum.HEARTS, ScoresEnum.SCORE_KING),
+                new Card(SuitsEnum.HEARTS, ScoresEnum.SCORE_10)
+
+        );
+        assertFalse(sut.isRoyalFlush(cards));
+    }
+
+
+    @Test
     public void is5ofKindTest() throws InvalidCardException {
         List<Card> cards = Arrays.asList(
                 new Card(SuitsEnum.CLUBS, ScoresEnum.SCORE_2),
