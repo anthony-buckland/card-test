@@ -11,35 +11,34 @@ import java.util.List;
 public class HandType {
 
     public static String describe(List<Card> cards) throws InvalidCardException {
-        var result = Words.HIGHEST_CARD; // default
+        var defaultValue = Words.HIGHEST_CARD;
         var calc = new HandCalculatorImpl();
-        Collections.sort(cards, new ReverseOrderedCardComparator());
         // go through the cards and test for each condition, in *strict* order.
         //
         // This is messy and should Java ever adopt JavaScripts "switch(true)"
-        // I will be forever grateful. Perhaps a rules engine would work better here
+        // I will be forever grateful. Perhaps a rules engine would work better here.
         if (calc.isRoyalFlush(cards)) {
-            result = Words.ROYAL_FLUSH;
+            return Words.ROYAL_FLUSH;
         } else if (calc.isFiveOfAKind(cards)) {
-            result = Words.FIVE_OF_KIND;
+            return Words.FIVE_OF_KIND;
         } else if (calc.isStraightFlush(cards)) {
-            result = Words.STRAIGHT_FLUSH;
+            return Words.STRAIGHT_FLUSH;
         } else if (calc.isFourOfAKind(cards)) {
-            result = Words.FOUR_OF_KIND;
+            return Words.FOUR_OF_KIND;
         } else if (calc.isFullHouse(cards)) {
-            result = Words.FULL_HOUSE;
+            return Words.FULL_HOUSE;
         } else if (calc.isFlush(cards)) {
-            result = Words.FLUSH;
+            return Words.FLUSH;
         } else if (calc.isStraight(cards)) {
-            result = Words.STRAIGHT;
+            return Words.STRAIGHT;
         } else if (calc.isThreeOfAKind(cards)) {
-            result = Words.THREE_OF_KIND;
+            return Words.THREE_OF_KIND;
         } else if (calc.isTwoPair(cards)) {
-            result = Words.TWO_PAIRS;
+            return Words.TWO_PAIRS;
         } else if (calc.isOnePair(cards)) {
-            result = Words.ONE_PAIR;
+            return Words.ONE_PAIR;
         }
         // if all else fails... highest card
-        return result;
+        return defaultValue;
     }
 }

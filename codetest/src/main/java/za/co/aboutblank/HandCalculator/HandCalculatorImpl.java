@@ -16,7 +16,7 @@ public class HandCalculatorImpl implements HandCalculator {
 
     public Boolean isRoyalFlush(List<Card> cards) throws InvalidCardException {
         // Only one suit, contains an ace. It will be ordered with the ace at the end because
-        // the default is Aces low. So we need one suit,the first card must be a king.
+        // the default is Aces low. So we need one suit, the first card must be a king.
         cards.sort(new ReverseOrderedCardComparator());
         if (cards.get(0).getScore().getValue() != 13 || cards.get(4).getScore().getValue() != 1) {
             // No King or Ace, return
@@ -31,7 +31,6 @@ public class HandCalculatorImpl implements HandCalculator {
         var cardsInOrder = new ArrayList<>(cards);
         cardsInOrder.add(0, new Card(suit, ScoresEnum.SCORE_ACES_HIGH));
         cardsInOrder.remove(cardsInOrder.size() - 1);
-
 
         if (CardOrderCheck.isReverseConsecutive(cardsInOrder)
                 && hand.size() == 5) {
