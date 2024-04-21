@@ -7,6 +7,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static za.co.aboutblank.consts.Errors.SCORE_OVER_LIMITS;
 import static za.co.aboutblank.consts.Words.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -127,5 +128,25 @@ class HandControllerFunctionalTest {
                 "http://localhost:" + port + "/hand?cards=" + input,
                 String.class))
                 .contains(HIGHEST_CARD);
+    }
+
+    @Test
+    public void canWorkWithSpacesTest() {
+        var input = "DK, CQ , S7 , S10 , H3";
+
+        assertThat(this.restTemplate.getForObject(
+                "http://localhost:" + port + "/hand?cards=" + input,
+                String.class))
+                .contains(HIGHEST_CARD);
+    }
+
+    @Test
+    public void canHandleInvalidValuesTest() {
+        var input = " DK, DQ, S77, S4, H3";
+
+        assertThat(this.restTemplate.getForObject(
+                "http://localhost:" + port + "/hand?cards=" + input,
+                String.class))
+                .contains(SCORE_OVER_LIMITS);
     }
 }

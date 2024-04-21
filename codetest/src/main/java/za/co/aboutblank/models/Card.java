@@ -5,8 +5,7 @@ import za.co.aboutblank.enums.ScoresEnum;
 import za.co.aboutblank.enums.SuitsEnum;
 import za.co.aboutblank.exceptions.InvalidCardException;
 
-import static za.co.aboutblank.consts.Errors.NO_SCORE_FOR_JOKER;
-import static za.co.aboutblank.consts.Errors.NO_SUIT;
+import static za.co.aboutblank.consts.Errors.*;
 
 public class Card {
 
@@ -33,8 +32,12 @@ public class Card {
             throw new InvalidCardException(NO_SUIT);
         }
         // test for Joker
-        if (!(suit.isJoker() && score == ScoresEnum.SCORE_JOKER)) {
+        if (suit.isJoker() && score != ScoresEnum.SCORE_JOKER) {
             throw new InvalidCardException(NO_SCORE_FOR_JOKER);
+        }
+        // test for illegal scores
+        if (!suit.isJoker() && score.getValue() > 14) {
+            throw new InvalidCardException(SCORE_OVER_LIMITS);
         }
     }
 

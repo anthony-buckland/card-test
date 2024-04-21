@@ -8,8 +8,7 @@ import za.co.aboutblank.exceptions.InvalidCardException;
 import za.co.aboutblank.models.Card;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static za.co.aboutblank.consts.Errors.NO_SCORE_FOR_JOKER;
-import static za.co.aboutblank.consts.Errors.NO_SUIT;
+import static za.co.aboutblank.consts.Errors.*;
 
 public class CardTest {
 
@@ -30,7 +29,7 @@ public class CardTest {
                 () -> new Card(SuitsEnum.HEARTS, ScoresEnum.SCORE_JOKER),
                 "isInvalidScore failed!");
 
-        assertTrue(ex.getMessage().contains(NO_SCORE_FOR_JOKER));
+        assertTrue(ex.getMessage().contains(SCORE_OVER_LIMITS));
     }
 
     @Test
@@ -41,23 +40,22 @@ public class CardTest {
     }
 
     @Test
-    public void getScoreForAnAcesLow() throws InvalidCardException  {
+    public void getScoreForAnAcesLow() throws InvalidCardException {
         // Test doesn't do very much!
         var card = new Card(SuitsEnum.HEARTS, ScoresEnum.SCORE_ACES_LOW);
         assertEquals(1, card.getScore().getValue());
     }
 
     @Test
-    public void getScoreForAnAcesHigh() throws InvalidCardException  {
+    public void getScoreForAnAcesHigh() throws InvalidCardException {
         // Nor this one.
         var card = new Card(SuitsEnum.DIAMONDS, ScoresEnum.SCORE_ACES_HIGH);
         assertEquals(14, card.getAceScore(AcesEnum.HIGH));
     }
 
     @Test
-    public void getScoreForAnythingExceptAce() throws InvalidCardException  {
+    public void getScoreForAnythingExceptAce() throws InvalidCardException {
         var card = new Card(SuitsEnum.DIAMONDS, ScoresEnum.SCORE_8);
         assertEquals(8, card.getAceScore(AcesEnum.HIGH));
     }
-
 }

@@ -34,13 +34,14 @@ public enum ScoresEnum {
         return this.value != 0;
     }
 
+    // Lookup
     public static List<ScoresEnum> getScores(String score) {
         return Arrays.stream(ScoresEnum.values())
-                .filter(s -> s.getValue() == Integer.parseInt(score)) // TODO test for int in case it is not one!
+                .filter(s -> s.getValue() == Integer.parseInt(score))
                 .toList();
     }
 
-    public static ScoresEnum getEnumByStringValue(String abbreviation) {
+    public static ScoresEnum getEnumByStringOrValue(String abbreviation) {
         return switch (abbreviation) {
             case "A" ->
                 // default, logic elsewhere handles Aces High
