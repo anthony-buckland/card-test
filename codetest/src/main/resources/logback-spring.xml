@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration additivity="false" debug="true">
+
+    <appender name="DEV_CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>[%thread] %highlight(%-5level) %cyan(%logger{15}) mdc:[%mdc] - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <springProfile name="dev">
+        <root level="INFO">
+            <appender-ref ref="DEV_CONSOLE"/>
+        </root>
+    </springProfile>
+
+</configuration>

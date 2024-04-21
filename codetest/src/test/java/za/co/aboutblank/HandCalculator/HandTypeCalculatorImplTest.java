@@ -17,7 +17,7 @@ public class HandTypeCalculatorImplTest {
     HandCalculatorImpl sut = new HandCalculatorImpl();
 
     @Test
-    public void isRoyalFlushTest() throws InvalidCardException  {
+    public void isRoyalFlushTest() throws InvalidCardException {
         List<Card> cards = Arrays.asList(
                 new Card(SuitsEnum.HEARTS, ScoresEnum.SCORE_KING),
                 new Card(SuitsEnum.HEARTS, ScoresEnum.SCORE_QUEEN),

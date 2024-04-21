@@ -67,7 +67,7 @@ class MapInputToCardTest {
     void abbreviationToCardFourCharTestValues() {
         var input = List.of("C100");
         assertThrows(InvalidCardException.class, () -> {
-            ArrayList<Card> output = sut.abbreviationToCard(input);
+            sut.abbreviationToCard(input);
         });
     }
 

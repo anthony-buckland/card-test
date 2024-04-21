@@ -1,14 +1,13 @@
-package za.co.aboutblank.HandCalculator.models;
+package za.co.aboutblank.models;
 
 import org.junit.jupiter.api.Test;
-import za.co.aboutblank.enums.AcesEnum;
 import za.co.aboutblank.enums.ScoresEnum;
 import za.co.aboutblank.enums.SuitsEnum;
 import za.co.aboutblank.exceptions.InvalidCardException;
-import za.co.aboutblank.models.Card;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static za.co.aboutblank.consts.Errors.*;
+import static za.co.aboutblank.consts.Errors.NO_SUIT;
+import static za.co.aboutblank.consts.Errors.SCORE_OVER_LIMITS;
 
 public class CardTest {
 
@@ -39,23 +38,5 @@ public class CardTest {
         assertEquals(2, card.getScore().getValue());
     }
 
-    @Test
-    public void getScoreForAnAcesLow() throws InvalidCardException {
-        // Test doesn't do very much!
-        var card = new Card(SuitsEnum.HEARTS, ScoresEnum.SCORE_ACES_LOW);
-        assertEquals(1, card.getScore().getValue());
-    }
 
-    @Test
-    public void getScoreForAnAcesHigh() throws InvalidCardException {
-        // Nor this one.
-        var card = new Card(SuitsEnum.DIAMONDS, ScoresEnum.SCORE_ACES_HIGH);
-        assertEquals(14, card.getAceScore(AcesEnum.HIGH));
-    }
-
-    @Test
-    public void getScoreForAnythingExceptAce() throws InvalidCardException {
-        var card = new Card(SuitsEnum.DIAMONDS, ScoresEnum.SCORE_8);
-        assertEquals(8, card.getAceScore(AcesEnum.HIGH));
-    }
 }

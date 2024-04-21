@@ -21,11 +21,6 @@ class ScoresEnumTest {
     }
 
     @Test
-    void getScores() {
-
-    }
-
-    @Test
     void getEnumByStringValue() throws InvalidCardException {
         var scoreEnum = ScoresEnum.getEnumByStringOrValue("K");
         assertEquals(ScoresEnum.SCORE_KING, scoreEnum);

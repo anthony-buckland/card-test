@@ -9,7 +9,8 @@ import za.co.aboutblank.models.Card;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class CardOrderCheckTest {
 
@@ -40,6 +41,7 @@ class CardOrderCheckTest {
         assertTrue(CardOrderCheck.isReverseConsecutive(cards));
 
     }
+
     @Test
     public void isNotReverseConsecutive() throws InvalidCardException {
         List<Card> cards = Arrays.asList(

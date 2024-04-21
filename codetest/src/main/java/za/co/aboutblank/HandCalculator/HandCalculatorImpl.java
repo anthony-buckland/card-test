@@ -9,7 +9,6 @@ import za.co.aboutblank.interfaces.HandCalculator;
 import za.co.aboutblank.models.Card;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
@@ -19,7 +18,7 @@ public class HandCalculatorImpl implements HandCalculator {
         // Only one suit, contains an ace. It will be ordered with the ace at the end because
         // the default is Aces low. So we need one suit,the first card must be a king.
         cards.sort(new ReverseOrderedCardComparator());
-        if(cards.get(0).getScore().getValue() != 13 || cards.get(4).getScore().getValue() != 1){
+        if (cards.get(0).getScore().getValue() != 13 || cards.get(4).getScore().getValue() != 1) {
             // No King or Ace, return
             return false;
         }
@@ -34,11 +33,11 @@ public class HandCalculatorImpl implements HandCalculator {
         cardsInOrder.remove(cardsInOrder.size() - 1);
 
 
-        if(CardOrderCheck.isReverseConsecutive(cardsInOrder)
-                && hand.size() == 5)
-                 {
+        if (CardOrderCheck.isReverseConsecutive(cardsInOrder)
+                && hand.size() == 5) {
             return true;
-        };
+        }
+        ;
         return false;
     }
 
@@ -69,9 +68,10 @@ public class HandCalculatorImpl implements HandCalculator {
                 .toList();
         //A bit of a hack here. The code can return the wrong value for a Straight Flush and a flush,
         // so we want  to know that the cards are consecutive
-        if(!(CardOrderCheck.isReverseConsecutive(cards) && hand.size() == 5)) {
+        if (!(CardOrderCheck.isReverseConsecutive(cards) && hand.size() == 5)) {
             return false;
-        };
+        }
+        ;
         return true;
     }
 

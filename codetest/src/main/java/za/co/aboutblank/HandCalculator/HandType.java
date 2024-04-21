@@ -9,11 +9,13 @@ import java.util.Collections;
 import java.util.List;
 
 public class HandType {
+
     public static String describe(List<Card> cards) throws InvalidCardException {
-        String result = Words.HIGHEST_CARD;
+        var result = Words.HIGHEST_CARD; // default
         var calc = new HandCalculatorImpl();
         Collections.sort(cards, new ReverseOrderedCardComparator());
         // go through the cards and test for each condition, in *strict* order.
+        //
         // This is messy and should Java ever adopt JavaScripts "switch(true)"
         // I will be forever grateful. Perhaps a rules engine would work better here
         if (calc.isRoyalFlush(cards)) {

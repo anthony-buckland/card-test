@@ -110,6 +110,7 @@ class HandTypeTest {
             assertEquals(Words.THREE_OF_KIND, HandType.describe(cards));
         }
     }
+
     @Test
     public void isCorrect2PairsTextTest() throws InvalidCardException {
         List<Card> cards = Arrays.asList(

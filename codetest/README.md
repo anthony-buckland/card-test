@@ -4,31 +4,52 @@ I do not play poker; never have, so I needed to do a good bit of learning before
 
 *Requirements to run this code*
 
-I used `OpenJDK 20` for Java. It should be backwards compatible to around Java 8. You'll need `gradle` too. 
+I used `OpenJDK 20` for Java and Spring Boot. It should be backwards compatible to around Java 17, but it needs to set under JAVA_HOME or similar. You'll need `gradle` too. 
 
 *Run the project*
 
 I typically use the command line, in my case Mac `Terminal`.
 
-Ideally check out the unit tests, but in any IDE or console with `gradle` installed, it should run with `./gradlew clean build` or the Windows equivalent `gradlew clean build`. If you wish to determine input, use the gradle `run` command 
+Ideally check out the unit tests, but in any IDE or console with `gradle` installed, it should run with `./gradlew clean bootRun` or the Windows equivalent `.\gradlew clean bootRun`. 
 
-*Terminal/Console input*
+Do not be alarmed if the terminal output appears to never have finished execution, this is a weird thing about Spring. It is actually running
+
+*Test the project*
+
+run with `./gradlew clean tesst` or the Windows equivalent `.\gradlew clean test`
+
+*Input*
 
 Input into the system can be entered on the command line using this simple language:
 
 Use the suit title character, eg H, C, D, S, (Hearts, Clubs, Diamonds, Spades) combined with either the number of the card or the initial of the type of card. Please lead with the suit. 
 
-eg:
-`2 Spades -> S2`
-`7 Clubs -> C7`
+eg:<br/>
+`2 Spades -> S2`<br/>
+`7 Clubs -> C7`<br/>
 `Knight Hearts -> HK`
 
-Separate the cards in each hand by a space:
+Separate the cards in each hand by a comma:
 
-`SK CQ D& H10 J`
+`SK,CQ,D&,H10,J`
+
+Tag them onto a querystring onto a (localhost) path as
+
+`/hand?cards=SK,CQ,D&,H10,J`
+
+This will return a plain text answer.
 
 (As I have said I know nothing about poker! Some games allow Jokers)
 
+There is another endpoint in the trivial API,
+
+`/hand/help`
+
+which, as it suggests will provide some basic information,
+
+and Swagger at 
+
+`swagger-ui/index.html`
 
 *Wikipedia*
 
@@ -57,7 +78,7 @@ I got a lot of inspiration for the setup from the following sites:
 * [Medium](https://blog.stackademic.com/building-a-simple-poker-hand-evaluator-in-c-1bb81676c25c)
 * And last but not least, https://open.spotify.com/
 
-That was useful for the basics, but when I went into business logic you can see I greatly diverged from the logic presented in these various tutorials.
+That was useful for the basics, but when I went into business logic you can see I greatly diverged from the logic presented in these various tutorials. I wanted to try it my way!
 
 
 
