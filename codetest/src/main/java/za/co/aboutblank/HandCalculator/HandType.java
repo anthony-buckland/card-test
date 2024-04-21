@@ -17,6 +17,7 @@ public class HandType {
         //
         // This is messy and should Java ever adopt JavaScripts "switch(true)"
         // I will be forever grateful. Perhaps a rules engine would work better here.
+        // but I ran out of time to implement one.
         if (calc.isRoyalFlush(cards)) {
             return Words.ROYAL_FLUSH;
         } else if (calc.isFiveOfAKind(cards)) {
