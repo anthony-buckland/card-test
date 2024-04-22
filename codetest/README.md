@@ -61,7 +61,7 @@ I used the Lombok plugin, because I like just writing `var` rather than the tedi
 
 As mentioned above I do not play poker, so I have no idea what the rules about Jokers are. In fact I have learnt everything about poker that I know in the past few days.
 
-Not sure if we are playing with multiple packs, as in a casino. I did not test for, say more than 5 Aces in a hand, impossible in a single pack game.
+Not sure if we are playing with multiple packs, as in a casino. I did not test for, say more than 4 Aces in a hand, impossible in a single pack game.
 
 Shot myself in the foot somewhat by using enums for the Scores, I could have used constants instead.
 
