@@ -20,7 +20,7 @@ run with `./gradlew clean tesst` or the Windows equivalent `.\gradlew clean test
 
 *Input*
 
-Input into the system can be entered on API using this simple language:
+Input into the system can be entered on the API using this simple format:
 
 Use the suit title character, eg H, C, D, S, (Hearts, Clubs, Diamonds, Spades) combined with either the number of the card or the initial of the type of card. Please lead with the suit. 
 
